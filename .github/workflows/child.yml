@@ -1,0 +1,43 @@
+name: Child Action 
+on:
+  workflow_call:
+    inputs:
+      inputB:
+        default: defaultB
+        required: false
+        type: string
+      inputC:
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      inputB:
+        default: defaultB
+        required: false
+        type: string
+      inputC:
+        required: false
+        type: string
+jobs:
+  child-job:
+    runs-on: macos-latest
+    name: Child's job
+    steps:
+      - name: Print stuff
+        run: |
+          echo "${{ github.event.inputs.inputA }}"
+          echo "${{ github.event.inputs.inputB }}"
+          echo "${{ github.event.inputs.inputC }}"
+
+          echo "${{ inputs.inputA }}"
+          echo "${{ inputs.inputB }}"
+          echo "${{ inputs.inputC }}"
+
+          echo "$env_inputA }"
+          echo "$env_inputB }"
+          echo "$env_inputC }"
+        env:
+          env_inputA: ${{ github.event.inputs.inputA || inputs.inputA }}
+          env_inputB: ${{ github.event.inputs.inputB || inputs.inputB }}
+          env_inputC: ${{ github.event.inputs.inputC || inputs.inputC }}
+

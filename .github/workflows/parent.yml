@@ -1,0 +1,14 @@
+name: parent
+on:
+  workflow_dispatch:
+    inputs:
+      inputA:
+        default: main
+        required: false
+        type: string
+jobs:
+  run-child:
+    uses: alanleemoven/gha-sandbox/.github/workflows/child.yml@main
+    with:
+      inputB: ${{ github.event.inputs.inputA }}
+      inputC: '${{ github.event.inputs.inputA }}.${{ github.event.inputs.inputA }}.${{ github.event.inputs.inputA }}'
