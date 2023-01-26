@@ -1,0 +1,10 @@
+name: Pull Request Lint
+
+on:
+  pull_request:
+    types: ['opened', 'edited', 'reopened', 'synchronize']
+
+jobs:
+  call_linter:
+    uses: moven/dev-tools/.github/workflows/child.yml@main
+
